@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Attendance Portal</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="glow">Face Attendance System</h1>
+    <button class="glassy-btn" onclick="location.reload()">Refresh Attendance</button>
+    <div class="table-wrapper">
+      <table id="attendanceTable">
+        <tr><th>Name</th><th>Time</th></tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    fetch('/attendance')
+      .then(res => res.json())
+      .then(data => {
+        const table = document.getElementById('attendanceTable');
+        data.slice(1).forEach(row => {
+          const tr = document.createElement('tr');
+          row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+          });
+          table.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>
